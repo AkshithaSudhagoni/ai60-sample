@@ -1,0 +1,1232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>NxtWave Academy · Build Your First AI Project in 60 Minutes</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f7f8fc;
+        --card: #fff;
+        --fg: #111827;
+        --mu: #4b5563;
+        --ln: #e5e7ef;
+        --ac: #4c3fd8;
+        --ok: #0a9f7a;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #0f1117;
+          --card: #181b25;
+          --fg: #f3f4f8;
+          --mu: #a3a8ba;
+          --ln: #2a2e3b;
+          --ac: #8b82ff;
+          --ok: #2fd3a5;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #0f1117;
+        --card: #181b25;
+        --fg: #f3f4f8;
+        --mu: #a3a8ba;
+        --ln: #2a2e3b;
+        --ac: #8b82ff;
+        --ok: #2fd3a5;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      .hid {
+        display: none !important;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font:
+          15px/1.5 Inter,
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+      .top {
+        height: 72px;
+        background: var(--card);
+        border-bottom: 1px solid var(--ln);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        position: sticky;
+        top: env(safe-area-inset-top, 0px);
+        z-index: 5;
+      }
+      .wm {
+        cursor: pointer;
+        display: block;
+        color: var(--fg);
+        line-height: 0;
+      }
+      .wm svg {
+        height: 44px;
+        width: auto;
+      }
+      .wm img {
+        height: 44px;
+      }
+      .tr {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .btn {
+        border: 0;
+        background: var(--ac);
+        color: #fff;
+        padding: 11px 20px;
+        border-radius: 8px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn.o {
+        background: var(--card);
+        color: var(--ac);
+        border: 1px solid var(--ac);
+      }
+      .btn.s {
+        padding: 8px 14px;
+        font-size: 14px;
+      }
+      .btn.g {
+        background: #1faa59;
+      }
+      .sp {
+        display: flex;
+        border: 1px solid var(--ln);
+        border-radius: 99px;
+        padding: 8px 6px;
+        font-size: 14px;
+      }
+      .sp span {
+        padding: 0 14px;
+      }
+      .sp span + span {
+        border-left: 1px solid var(--ln);
+      }
+      .tav {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 2px solid var(--ln);
+        background: var(--bg);
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        color: var(--mu);
+      }
+      .app {
+        display: flex;
+        align-items: flex-start;
+      }
+      .side {
+        width: 260px;
+        flex: none;
+        background: var(--card);
+        border-right: 1px solid var(--ln);
+        padding: 14px;
+        position: sticky;
+        top: calc(72px + env(safe-area-inset-top, 0px));
+        min-height: calc(100vh - 72px);
+      }
+      .side button {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        border: 1px solid transparent;
+        background: none;
+        color: var(--fg);
+        padding: 11px 14px;
+        border-radius: 10px;
+        font: inherit;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: left;
+        margin-bottom: 4px;
+      }
+      .side button.on {
+        border-color: var(--ln);
+        color: var(--ac);
+        font-weight: 600;
+        box-shadow: 0 1px 3px rgba(20, 20, 60, 0.08);
+      }
+      .sl {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--mu);
+        margin: 16px 4px 8px;
+      }
+      .sl:after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--ln);
+      }
+      .ic {
+        width: 18px;
+        height: 18px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        flex: none;
+      }
+      .main {
+        flex: 1;
+        min-width: 0;
+        padding: 24px;
+        max-width: 1180px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--ln);
+        border-radius: 16px;
+        padding: 22px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 4px rgba(20, 20, 60, 0.05);
+      }
+      .hc {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        padding: 0;
+        overflow: hidden;
+      }
+      .hl {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+      }
+      h1 {
+        font-size: 34px;
+        line-height: 1.15;
+        margin: 0;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 22px;
+        margin: 0 0 10px;
+        font-weight: 700;
+      }
+      h3 {
+        font-size: 22px;
+        line-height: 1.25;
+        margin: 4px 0 10px;
+        font-weight: 600;
+      }
+      .h2 {
+        margin: 26px 0 14px;
+      }
+      .lbl,
+      .eye {
+        font-size: 12px;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .lbl {
+        color: var(--mu);
+      }
+      .eye {
+        color: #4a62c7;
+      }
+      .eye.p {
+        color: #9333ea;
+      }
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .pills span {
+        background: color-mix(in srgb, var(--fg) 6%, var(--card));
+        border-radius: 14px;
+        padding: 12px 20px;
+        font-weight: 500;
+      }
+      .hr2 {
+        background: linear-gradient(
+          135deg,
+          color-mix(in srgb, #c5ccff 30%, var(--card)),
+          color-mix(in srgb, #9fb0ff 70%, var(--card))
+        );
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-content: center;
+        justify-content: center;
+        padding: 22px;
+      }
+      .chip {
+        border: 1px solid;
+        border-radius: 8px;
+        padding: 8px 12px;
+        text-align: center;
+        min-width: 100px;
+        color: #2f3550;
+      }
+      .chip b {
+        display: block;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .chip span {
+        font-size: 12.5px;
+        opacity: 0.85;
+      }
+      .g2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .g2 > .card {
+        margin: 0;
+      }
+      .ca {
+        background: linear-gradient(
+          135deg,
+          color-mix(in srgb, #9db8ff 38%, var(--card)),
+          var(--card) 75%
+        );
+      }
+      .cb {
+        background: linear-gradient(
+          135deg,
+          color-mix(in srgb, #d6a8ff 30%, var(--card)),
+          var(--card) 75%
+        );
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--ln);
+        border-radius: 10px;
+        background: var(--card);
+        color: var(--fg);
+        font: inherit;
+        margin-bottom: 10px;
+      }
+      .mu {
+        color: var(--mu);
+      }
+      .ok {
+        color: var(--ok);
+        font-weight: 600;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .host {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .av {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--ac) center/cover;
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        font-size: 22px;
+        cursor: pointer;
+        flex: none;
+      }
+      .bar {
+        height: 8px;
+        background: var(--ln);
+        border-radius: 9px;
+        overflow: hidden;
+      }
+      .bar i {
+        display: block;
+        height: 100%;
+        background: var(--ac);
+        transition: width 0.5s;
+      }
+      .code {
+        font:
+          700 22px ui-monospace,
+          monospace;
+        letter-spacing: 1px;
+        color: var(--ac);
+      }
+      .q {
+        border-left: 3px solid var(--ac);
+        padding: 6px 12px;
+        margin: 8px 0;
+        background: var(--bg);
+        border-radius: 0 8px 8px 0;
+      }
+      .rw span {
+        display: inline-block;
+        padding: 4px 10px;
+        margin: 4px 4px 0 0;
+        border: 1px dashed var(--ln);
+        border-radius: 8px;
+        font-size: 13px;
+      }
+      .rw span.u {
+        border-style: solid;
+        border-color: var(--ok);
+        color: var(--ok);
+      }
+      .kpi {
+        font-size: 28px;
+        font-weight: 700;
+      }
+      .ld {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--ln);
+      }
+      @media (max-width: 860px) {
+        .app {
+          flex-direction: column;
+        }
+        .side {
+          width: 100%;
+          min-height: 0;
+          position: static;
+          display: flex;
+          gap: 6px;
+          overflow-x: auto;
+          padding: 8px 12px;
+        }
+        .side button {
+          width: auto;
+          white-space: nowrap;
+          margin: 0;
+        }
+        .sl {
+          display: none;
+        }
+        .hc,
+        .g2 {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 26px;
+        }
+        .sp,
+        .tav {
+          display: none;
+        }
+        .top {
+          padding: 0 14px;
+        }
+        .main {
+          padding: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute">
+      <symbol id="i-home" viewBox="0 0 24 24">
+        <path d="M3 11l9-8 9 8v10H3z" />
+      </symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24">
+        <path d="M4 5h16v11H9l-5 4z" />
+      </symbol>
+      <symbol id="i-tk" viewBox="0 0 24 24">
+        <path d="M3 8h18v3a2 2 0 000 4v3H3v-3a2 2 0 000-4z" />
+      </symbol>
+      <symbol id="i-ch" viewBox="0 0 24 24">
+        <path d="M4 20V10M10 20V4M16 20v-8M22 20H2" />
+      </symbol>
+      <symbol id="i-user" viewBox="0 0 24 24">
+        <path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 4-6 8-6s8 2 8 6" />
+      </symbol>
+    </svg>
+    <header class="top">
+      <label class="wm" id="lm" title="Tap to upload the official logo"
+        ><svg viewBox="0 0 175 52" aria-label="NxtWave Academy">
+          <defs>
+            <linearGradient id="lg1" x1="0" x2="1">
+              <stop offset="0" stop-color="#2d6bff" />
+              <stop offset="1" stop-color="#19c37d" />
+            </linearGradient>
+          </defs>
+          <text
+            x="4"
+            y="21"
+            font-size="15"
+            font-weight="700"
+            fill="currentColor"
+            font-family="Inter,system-ui,sans-serif"
+          >
+            NxtWave
+          </text>
+          <text
+            x="1"
+            y="46"
+            font-size="26"
+            font-weight="800"
+            letter-spacing="-1.2"
+            fill="currentColor"
+            font-family="Inter,system-ui,sans-serif"
+          >
+            ACADEMY
+          </text>
+          <path
+            d="M104 24C112 4 121 0 128 13c6 12 14 16 22-8 3-9 6-8 10 2"
+            fill="none"
+            stroke="url(#lg1)"
+            stroke-width="4.5"
+            stroke-linecap="round"
+          /></svg
+        ><input type="file" accept="image/*" id="lg" class="hid"
+      /></label>
+      <div class="tr">
+        <button class="btn" id="tb">Reserve seat</button>
+        <div class="sp">
+          <span><b id="tj"></b> joined</span
+          ><span><b id="tl"></b> seats left</span>
+        </div>
+        <div class="tav" id="tav"></div>
+      </div>
+    </header>
+    <div class="app">
+      <aside class="side">
+        <button data-v="home" class="on">
+          <svg class="ic"><use href="#i-home" /></svg>Home
+        </button>
+        <div class="sl">Workshop</div>
+        <button data-v="qa">
+          <svg class="ic"><use href="#i-chat" /></svg>Live Q&amp;A
+        </button>
+        <div class="sl">My seat</div>
+        <button data-v="seat">
+          <svg class="ic"><use href="#i-tk" /></svg>Confirmation
+        </button>
+        <div class="sl">Host</div>
+        <button data-v="host">
+          <svg class="ic"><use href="#i-ch" /></svg>Dashboard
+        </button>
+      </aside>
+      <main class="main">
+        <section id="v-home" class="view">
+          <div class="card hc">
+            <div class="hl">
+              <h1>Build your first AI project in 60 minutes</h1>
+              <p class="mu" style="margin: 0">
+                Build a working <b id="proj"></b> live with the host.
+                Certificate for live attendees, and the session recording for
+                everyone who registers.
+              </p>
+              <div class="lbl">What you'll learn</div>
+              <div class="pills">
+                <span>AI Resume Analyzer</span><span>Python and AI Tools</span
+                ><span>Publish to GitHub</span>
+              </div>
+              <button class="btn o" id="cta">Reserve your free seat</button>
+            </div>
+            <div class="hr2">
+              <div
+                class="chip"
+                style="background: #e3f6fb; border-color: #bfe6f1"
+              >
+                <b>2000+</b><span>Hiring Partners</span>
+              </div>
+              <div
+                class="chip"
+                style="background: #fdf0e6; border-color: #f4d6bb"
+              >
+                <b>36000+</b><span>Learners</span>
+              </div>
+              <div
+                class="chip"
+                style="background: #e9e9fb; border-color: #cfcff4"
+              >
+                <b>10000+</b><span>Hours of Learning</span>
+              </div>
+              <div
+                class="chip"
+                style="background: #fde8e8; border-color: #f6c5c5"
+              >
+                <b>90+</b><span>Tech Skills</span>
+              </div>
+              <div
+                class="chip"
+                style="background: #e4e9fb; border-color: #c6d0f3"
+              >
+                <b>3000+</b><span>Coding Problems</span>
+              </div>
+            </div>
+          </div>
+          <h2 class="h2">Reserve your seat</h2>
+          <div class="g2">
+            <div class="card ca" id="reg">
+              <div class="eye">Event</div>
+              <h3>Reserve your free seat</h3>
+              <input id="n" placeholder="Full name" /><input
+                id="e"
+                type="email"
+                placeholder="Email"
+              /><input id="w" placeholder="WhatsApp number" /><input
+                id="c"
+                placeholder="College"
+              /><input id="r" placeholder="Referral code (optional)" />
+              <button class="btn" id="go" style="width: 100%">
+                Reserve my free seat
+              </button>
+              <div class="mu" id="err" style="margin-top: 8px"></div>
+            </div>
+            <div class="card ca hid" id="regd">
+              <div class="eye">Confirmed</div>
+              <h3>Your seat is reserved</h3>
+              <p class="mu">
+                Add the session to your calendar and get your referral link.
+              </p>
+              <button class="btn" data-go="seat">View confirmation</button>
+            </div>
+            <div class="card cb">
+              <div class="eye p">Your host</div>
+              <div class="host" style="margin: 12px 0">
+                <label class="av" id="av" title="Demo: tap to upload a headshot"
+                  >H<input type="file" accept="image/*" id="hs" class="hid"
+                /></label>
+                <div>
+                  <b id="hn" style="font-size: 18px"></b>
+                  <div class="mu" id="hr"></div>
+                </div>
+              </div>
+              <p style="margin: 0 0 14px">Live session: <b id="when"></b></p>
+              <div
+                class="row mu"
+                style="justify-content: space-between; font-size: 14px"
+              >
+                <span><b id="cnt">0</b> / <span id="goal"></span> joined</span
+                ><span id="left"></span>
+              </div>
+              <div class="bar" style="margin-top: 6px"><i id="pb"></i></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="v-seat" class="view hid">
+          <div id="s-empty" class="card">
+            <h3>No seat reserved yet</h3>
+            <p class="mu">
+              Register to get your confirmation, calendar links and referral
+              code.
+            </p>
+            <button class="btn" data-go="home">Reserve a seat</button>
+          </div>
+          <div id="s-ok" class="hid">
+            <div class="card ca">
+              <div class="eye">Confirmed</div>
+              <h1 style="margin: 6px 0">You're in, <span id="dn"></span></h1>
+              <p class="mu" style="margin: 0">
+                <b id="when2"></b>. Build an AI Resume Analyzer live, in 60
+                minutes.
+              </p>
+            </div>
+            <div class="g2">
+              <div class="card">
+                <div class="eye">Add to calendar</div>
+                <h3>Save the session</h3>
+                <div class="row">
+                  <a class="btn s" id="gc" target="_blank" rel="noopener"
+                    >Google Calendar</a
+                  ><a class="btn s o" id="oc" target="_blank" rel="noopener"
+                    >Outlook</a
+                  ><a
+                    class="btn s o"
+                    id="ics"
+                    download="nxtwave-ai-workshop.ics"
+                    >Apple / .ics</a
+                  >
+                </div>
+              </div>
+              <div class="card cb">
+                <div class="eye p">Series calendar</div>
+                <h3>Get every future session</h3>
+                <p class="mu" style="margin: 0 0 10px">
+                  Subscribe once and new workshops appear in your calendar.
+                </p>
+                <div class="row">
+                  <a class="btn s" id="sg" target="_blank" rel="noopener"
+                    >Subscribe (Google)</a
+                  ><a class="btn s o" id="sw">Apple / Outlook</a>
+                </div>
+              </div>
+            </div>
+            <div class="g2">
+              <div class="card">
+                <div class="eye">Attend live</div>
+                <h3>Show up on the day</h3>
+                <p class="mu" style="margin: 0 0 10px">
+                  Reminders on WhatsApp 24 hrs, 2 hrs and 15 mins before we
+                  start.
+                </p>
+                <a class="btn s g" id="wag" target="_blank" rel="noopener"
+                  >Join WhatsApp group</a
+                >
+                <label style="display: block; margin-top: 14px"
+                  ><input
+                    type="checkbox"
+                    id="cm"
+                    style="width: auto; margin: 0 8px 0 0"
+                  />I'll attend live (certificate and Q&amp;A shout-outs are for
+                  live attendees)</label
+                >
+                <div id="cmx" class="ok"></div>
+              </div>
+              <div class="card ca">
+                <div class="eye">Refer and earn</div>
+                <h3>Your referral link</h3>
+                <div class="code" id="mc"></div>
+                <input id="rl" readonly style="margin: 10px 0" />
+                <div class="row">
+                  <button class="btn s" id="cp">Copy link</button
+                  ><a class="btn s g" id="sh" target="_blank" rel="noopener"
+                    >Share on WhatsApp</a
+                  >
+                </div>
+                <p style="margin: 12px 0 0">
+                  Friends referred: <b id="rc">0</b>
+                </p>
+                <div class="rw" id="rw"></div>
+                <button class="btn s o" id="sim" style="margin-top: 12px">
+                  Demo: simulate a friend registering
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="v-qa" class="view hid">
+          <h2>Live Q&amp;A</h2>
+          <div class="card ca">
+            <div class="eye">Ask the host</div>
+            <h3>Submit your question</h3>
+            <p class="mu" style="margin: 0 0 10px">
+              Selected questions are read out by name during the session.
+            </p>
+            <textarea
+              id="qt"
+              rows="3"
+              placeholder="e.g. Can I build this with basic Python?"
+            ></textarea
+            ><button class="btn s" id="qs">Submit question</button>
+            <div id="qm" class="ok" style="margin-top: 8px"></div>
+          </div>
+          <div class="card">
+            <h3>Questions we will answer live</h3>
+            <div id="wall"></div>
+          </div>
+        </section>
+
+        <section id="v-host" class="view hid">
+          <h2>
+            Host dashboard
+            <span class="mu" style="font-weight: 400; font-size: 14px"
+              >(demo data)</span
+            >
+          </h2>
+          <div class="g2">
+            <div class="card">
+              <div class="mu">Registrations</div>
+              <div class="kpi" id="k1"></div>
+              <div class="bar"><i id="k1b"></i></div>
+            </div>
+            <div class="card">
+              <div class="mu">Referral share of signups</div>
+              <div class="kpi" id="k2"></div>
+              <div class="mu" id="k2s"></div>
+            </div>
+          </div>
+          <div class="g2">
+            <div class="card">
+              <h3>Funnel to attendance</h3>
+              <div id="fn"></div>
+            </div>
+            <div class="card">
+              <h3>Registrations by source</h3>
+              <div id="src"></div>
+            </div>
+          </div>
+          <div class="g2">
+            <div class="card">
+              <h3>Referral leaderboard</h3>
+              <div id="lb"></div>
+            </div>
+            <div class="card">
+              <h3>Top colleges</h3>
+              <div id="col"></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Q&amp;A moderation</h3>
+            <p class="mu" style="margin: 0 0 6px">
+              Call a question out by name; it then appears on the Live Q&amp;A
+              page.
+            </p>
+            <div id="mod"></div>
+          </div>
+          <button class="btn s o" id="rs">Reset demo</button>
+        </section>
+      </main>
+    </div>
+    <script>
+      const C = {
+        host: "Host",
+        role: "Python, Computer Vision and Deep Learning",
+        proj: "AI Resume Analyzer",
+        goal: 500,
+        when: "Sat 17 Oct, 7:00 PM IST",
+        s: "20261017T133000Z",
+        e: "20261017T143000Z",
+        si: "2026-10-17T13:30:00Z",
+        ei: "2026-10-17T14:30:00Z",
+        series: "webcal://example.com/ai60-series.ics",
+        wa: "https://chat.whatsapp.com/YOUR-GROUP-LINK",
+        base: 268,
+        visits: 1140,
+        cal: 171,
+        qs: 52,
+        cm: 140,
+      };
+      const SEEDSRC = {
+          WhatsApp: 131,
+          Ambassador: 84,
+          "Instagram/LinkedIn": 41,
+          Referral: 12,
+        },
+        SEEDCOL = {
+          "CBIT Hyderabad": 38,
+          "JNTU Karimnagar": 34,
+          "VNR VJIET": 29,
+          "KITS Warangal": 26,
+          "Other colleges": 141,
+        },
+        SEEDLB = [
+          ["Sneha R.", "KITS Warangal", 14],
+          ["Arjun M.", "VNR VJIET", 11],
+          ["Divya T.", "JNTU Karimnagar", 9],
+          ["Karthik P.", "CBIT Hyderabad", 7],
+        ];
+      const SEEDQ = () => [
+        {
+          n: "Priya S.",
+          c: "CBIT Hyderabad",
+          q: "Can I build this if I only know basic Python?",
+          out: 1,
+        },
+        {
+          n: "Rahul K.",
+          c: "JNTU Karimnagar",
+          q: "Will it run on a low-end laptop?",
+          out: 1,
+        },
+        {
+          n: "Sneha R.",
+          c: "KITS Warangal",
+          q: "How do I explain this project in interviews?",
+          out: 1,
+        },
+        {
+          n: "Arjun M.",
+          c: "VNR VJIET",
+          q: "Will the code be shared after the session?",
+          out: 0,
+        },
+      ];
+      const RW = [
+        [0, "Seat confirmed"],
+        [1, "Prep checklist"],
+        [3, "Project starter resources"],
+        [5, "Bonus AI project ideas"],
+        [10, "Post-workshop project review"],
+      ];
+      const $ = (i) => document.getElementById(i),
+        esc = (s) =>
+          String(s).replace(
+            /[&<>"]/g,
+            (m) =>
+              ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[m],
+          );
+      const fresh = () => ({ regs: [], qs: SEEDQ(), me: null, visits: 0 });
+      let S;
+      try {
+        S = JSON.parse(localStorage.getItem("ai60")) || fresh();
+      } catch (x) {
+        S = fresh();
+      }
+      const save = () => {
+        try {
+          localStorage.setItem("ai60", JSON.stringify(S));
+        } catch (x) {}
+      };
+      const link = () =>
+        location.href.split("?")[0].split("#")[0] +
+        "?ref=" +
+        (S.me ? S.me.code : "");
+      const mkc = () =>
+        "AI60-" +
+        Array.from(
+          { length: 4 },
+          () => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[(Math.random() * 32) | 0],
+        ).join("");
+      const mine = () =>
+        S.me ? S.regs.filter((r) => r.ref === S.me.code).length : 0;
+      function ics() {
+        return (
+          "data:text/calendar;charset=utf-8," +
+          encodeURIComponent(
+            [
+              "BEGIN:VCALENDAR",
+              "VERSION:2.0",
+              "PRODID:-//NxtWave Academy//AI60//EN",
+              "BEGIN:VEVENT",
+              "UID:ai60-" + C.s + "@nxtwave",
+              "DTSTAMP:20261004T000000Z",
+              "DTSTART:" + C.s,
+              "DTEND:" + C.e,
+              "SUMMARY:Build Your First AI Project in 60 Minutes",
+              "DESCRIPTION:Live workshop. Build an " +
+                C.proj +
+                ". Join link will be sent on WhatsApp.",
+              "END:VEVENT",
+              "END:VCALENDAR",
+            ].join("\r\n"),
+          )
+        );
+      }
+      function show(v) {
+        document
+          .querySelectorAll(".view")
+          .forEach((s) => s.classList.toggle("hid", s.id !== "v-" + v));
+        document
+          .querySelectorAll(".side button")
+          .forEach((b) => b.classList.toggle("on", b.dataset.v === v));
+        try {
+          history.replaceState(null, "", "#/" + v);
+        } catch (x) {}
+        window.scrollTo(0, 0);
+      }
+      function render() {
+        const tot = C.base + S.regs.length,
+          pct = Math.min(100, (tot / C.goal) * 100),
+          me = S.me,
+          lives = S.regs.filter((r) => r.cm).length;
+        $("tj").textContent = tot;
+        $("tl").textContent = Math.max(0, C.goal - tot);
+        $("tb").textContent = me ? "My seat" : "Reserve seat";
+        $("tav").innerHTML = me
+          ? esc(me.name.trim()[0].toUpperCase())
+          : '<svg class="ic"><use href="#i-user"/></svg>';
+        $("when").textContent = C.when;
+        $("when2").textContent = C.when;
+        $("proj").textContent = C.proj;
+        $("goal").textContent = C.goal;
+        $("cnt").textContent = tot;
+        $("pb").style.width = pct + "%";
+        $("left").textContent = Math.max(0, C.goal - tot) + " seats left";
+        $("hn").textContent = C.host;
+        $("hr").textContent = C.role;
+        $("reg").classList.toggle("hid", !!me);
+        $("regd").classList.toggle("hid", !me);
+        $("s-empty").classList.toggle("hid", !!me);
+        $("s-ok").classList.toggle("hid", !me);
+        if (me) {
+          $("dn").textContent = me.name.split(" ")[0];
+          const t = encodeURIComponent(
+              "Build Your First AI Project in 60 Minutes",
+            ),
+            d = encodeURIComponent(
+              "Live workshop. Join link will be sent on WhatsApp.",
+            );
+          $("gc").href =
+            "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" +
+            t +
+            "&dates=" +
+            C.s +
+            "/" +
+            C.e +
+            "&details=" +
+            d;
+          $("oc").href =
+            "https://outlook.live.com/calendar/0/deeplink/compose?subject=" +
+            t +
+            "&startdt=" +
+            C.si +
+            "&enddt=" +
+            C.ei +
+            "&body=" +
+            d;
+          $("ics").href = ics();
+          $("sg").href =
+            "https://calendar.google.com/calendar/r?cid=" + C.series;
+          $("sw").href = C.series;
+          $("wag").href = C.wa;
+          $("mc").textContent = me.code;
+          $("rl").value = link();
+          $("rc").textContent = mine();
+          $("sh").href =
+            "https://wa.me/?text=" +
+            encodeURIComponent(
+              "Build a real AI project in 60 mins. Free workshop with certificate and recording. Register with my code " +
+                me.code +
+                ": " +
+                link(),
+            );
+          $("cm").checked = !!me.cm;
+          $("cmx").textContent = me.cm ? "Locked in. See you live." : "";
+          $("rw").innerHTML = RW.map(
+            (r) =>
+              `<span class="${mine() >= r[0] ? "u" : ""}">${r[0]} referral${r[0] == 1 ? "" : "s"}: ${r[1]}</span>`,
+          ).join("");
+        }
+        $("wall").innerHTML =
+          S.qs
+            .filter((q) => q.out || q.mine)
+            .map(
+              (q) =>
+                `<div class="q">"${esc(q.q)}"<div class="mu" style="font-size:13px">${q.out ? "Called out" : "Pending review"} · <b>${esc(q.n)}</b>, ${esc(q.c)}</div></div>`,
+            )
+            .join("") || '<p class="mu">No questions yet.</p>';
+        const ln = S.regs.length,
+          rf = S.regs.filter((r) => r.ref).length,
+          refT = SEEDSRC.Referral + rf;
+        $("k1").textContent = tot + " / " + C.goal;
+        $("k1b").style.width = pct + "%";
+        $("k2").textContent = Math.round((refT / tot) * 100) + "%";
+        $("k2s").textContent = refT + " came via referral codes";
+        const vis = C.visits + S.visits,
+          cal = C.cal + S.regs.filter((r) => r.calc).length,
+          qn = C.qs + S.qs.filter((q) => q.mine).length,
+          cmt = C.cm + lives;
+        const fr = (l, v, b) =>
+          `<div style="margin:8px 0"><div class="row" style="justify-content:space-between"><span>${l}</span><b>${v}${b ? " · " + Math.round((v / b) * 100) + "%" : ""}</b></div><div class="bar"><i style="width:${Math.min(100, (v / vis) * 100)}%"></i></div></div>`;
+        $("fn").innerHTML =
+          fr("Visited", vis) +
+          fr("Registered", tot, vis) +
+          fr("Added to calendar", cal, tot) +
+          fr("Asked a question", qn, tot) +
+          fr("Committed to attend live", cmt, tot);
+        const src = { ...SEEDSRC };
+        S.regs.forEach((r) => (src[r.src] = (src[r.src] || 0) + 1));
+        $("src").innerHTML = Object.entries(src)
+          .sort((a, b) => b[1] - a[1])
+          .map(
+            ([k, v]) =>
+              `<div class="ld"><span>${esc(k)}</span><b>${v}</b></div>`,
+          )
+          .join("");
+        const lb = SEEDLB.map((x) => ({ n: x[0], c: x[1], v: x[2] }));
+        if (me && mine())
+          lb.push({ n: me.name + " (you)", c: me.college, v: mine() });
+        $("lb").innerHTML = lb
+          .sort((a, b) => b.v - a.v)
+          .map(
+            (x, i) =>
+              `<div class="ld"><span>${i + 1}. ${esc(x.n)} <span class="mu">${esc(x.c)}</span></span><b>${x.v}</b></div>`,
+          )
+          .join("");
+        const col = { ...SEEDCOL };
+        S.regs.forEach((r) => {
+          const k = r.college || "Other colleges";
+          col[k] = (col[k] || 0) + 1;
+        });
+        $("col").innerHTML = Object.entries(col)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 6)
+          .map(
+            ([k, v]) =>
+              `<div class="ld"><span>${esc(k)}</span><b>${v}</b></div>`,
+          )
+          .join("");
+        $("mod").innerHTML = S.qs
+          .map(
+            (q, i) =>
+              `<div class="q"><div>"${esc(q.q)}" <span class="mu">from ${esc(q.n)}, ${esc(q.c)}</span></div><button class="btn s ${q.out ? "" : "o"}" data-i="${i}" style="margin-top:6px">${q.out ? "Called out (undo)" : "Call out"}</button></div>`,
+          )
+          .join("");
+      }
+      function reg(name, college, ref, src) {
+        const r = { name, college, ref, src, code: mkc(), t: Date.now() };
+        S.regs.push(r);
+        S.visits += 3;
+        return r;
+      }
+      $("go").onclick = () => {
+        const n = $("n").value.trim(),
+          e = $("e").value.trim(),
+          w = $("w").value.trim(),
+          c = $("c").value.trim(),
+          rf = $("r").value.trim().toUpperCase();
+        if (!n || !/.+@.+\..+/.test(e) || w.length < 10 || !c) {
+          $("err").textContent =
+            "Please fill name, a valid email, WhatsApp number and college.";
+          return;
+        }
+        $("err").textContent = "";
+        const r = reg(n, c, rf, rf ? "Referral" : "WhatsApp");
+        S.me = { name: n, college: c, code: r.code, i: S.regs.length - 1 };
+        save();
+        render();
+        show("seat");
+      };
+      ["gc", "oc", "ics", "sg", "sw"].forEach((i) =>
+        $(i).addEventListener("click", () => {
+          const r = S.regs[S.me.i];
+          if (r && !r.calc) {
+            r.calc = 1;
+            save();
+            render();
+          }
+        }),
+      );
+      $("cm").onchange = (e) => {
+        S.me.cm = e.target.checked;
+        const r = S.regs[S.me.i];
+        if (r) r.cm = S.me.cm;
+        save();
+        render();
+      };
+      $("qs").onclick = () => {
+        const q = $("qt").value.trim();
+        if (!S.me) {
+          $("qm").textContent = "Reserve a seat first to ask a question.";
+          return;
+        }
+        if (!q) return;
+        S.qs.push({ n: S.me.name, c: S.me.college, q, out: 0, mine: 1 });
+        $("qt").value = "";
+        $("qm").textContent =
+          "Thanks. If we pick it, we will read it out by name.";
+        save();
+        render();
+      };
+      $("cp").onclick = () => {
+        try {
+          navigator.clipboard.writeText(link());
+          $("cp").textContent = "Copied";
+        } catch (x) {
+          $("rl").select();
+        }
+      };
+      $("sim").onclick = () => {
+        const N = ["Ishaan", "Meera", "Rohit", "Anjali", "Vikram", "Pooja"],
+          K = [
+            "CBIT Hyderabad",
+            "VNR VJIET",
+            "JNTU Karimnagar",
+            "KITS Warangal",
+          ];
+        reg(
+          N[(Math.random() * 6) | 0] +
+            " " +
+            "ABCDEFGHJKLMNPRSTV"[(Math.random() * 18) | 0] +
+            ".",
+          K[(Math.random() * 4) | 0],
+          S.me.code,
+          "Referral",
+        );
+        save();
+        render();
+      };
+      $("mod").onclick = (e) => {
+        const i = e.target.dataset.i;
+        if (i === undefined) return;
+        S.qs[i].out = S.qs[i].out ? 0 : 1;
+        save();
+        render();
+      };
+      $("rs").onclick = () => {
+        S = fresh();
+        save();
+        ["n", "e", "w", "c", "r"].forEach((i) => ($(i).value = ""));
+        pre();
+        render();
+        show("home");
+      };
+      document.addEventListener("click", (e) => {
+        const b = e.target.closest("[data-v],[data-go]");
+        if (b) show(b.dataset.v || b.dataset.go);
+      });
+      $("cta").onclick = () => $("reg").scrollIntoView({ behavior: "smooth" });
+      $("tb").onclick = () => {
+        if (S.me) show("seat");
+        else {
+          show("home");
+          setTimeout(() => $("reg").scrollIntoView({ behavior: "smooth" }), 60);
+        }
+      };
+      function img(id, fn) {
+        $(id).onchange = (e) => {
+          const f = e.target.files[0];
+          if (!f) return;
+          const r = new FileReader();
+          r.onload = () => fn(r.result);
+          r.readAsDataURL(f);
+        };
+      }
+      img("hs", (u) => {
+        $("av").style.backgroundImage = "url(" + u + ")";
+        $("av").firstChild.textContent = "";
+      });
+      img("lg", (u) => {
+        $("lm").innerHTML = '<img alt="logo" src="' + u + '">';
+      });
+      function pre() {
+        const p = new URLSearchParams(location.search).get("ref");
+        if (p) $("r").value = p.toUpperCase();
+        $("av").firstChild.textContent = C.host
+          .split(" ")
+          .map((w) => w[0])
+          .join("")
+          .slice(0, 2);
+      }
+      pre();
+      S.visits++;
+      render();
+      const hv = location.hash.slice(2);
+      show(["home", "qa", "seat", "host"].includes(hv) ? hv : "home");
+    </script>
+  </body>
+</html>
